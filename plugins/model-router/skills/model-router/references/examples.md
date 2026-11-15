@@ -11,7 +11,9 @@ Request: "Redesign the ninja mode: new shorter characters from free assets, a ha
 | Find CC0/CC-BY ninja sprite packs, report licenses and URLs | Sonnet | low | Search and extraction; easy to verify |
 | Design the combat and jutsu systems: data model, seal input, server sync | Fable (or Opus in eco) | high | New architecture on a server-authoritative sim; mistakes are expensive |
 | Design the map layout format (layers, ledges, hiding spots, trap sockets) | Opus | high | Real design choices, moderate coupling |
-| Implement jutsu effects from the spec (fire, clone, stealth, …) | Sonnet ×N in parallel | medium | Clear spec, high volume |
+| Implement the seal-input core and the first jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; desync bugs are silent. It becomes the template |
+| Implement the remaining jutsu by following the first one | Sonnet ×N in parallel | medium | Clear pattern to copy, high volume |
+| Multi-hit combat feel (hit-stop, combos, knockback tuning) | Opus | medium | "Feels good" needs interpretation; Sonnet tends to need several rounds |
 | Codex UI page listing seal combos | Sonnet | low | Follows existing UI patterns |
 | Adapt sprites (crop, recolor, crouched run frames) | Sonnet | medium | Mechanical, verified visually |
 | Review the integrated diff for desync and edge cases | Opus | high | Cross-cutting review |

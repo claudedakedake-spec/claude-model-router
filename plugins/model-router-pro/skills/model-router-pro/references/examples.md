@@ -11,12 +11,14 @@ Request: "Redesign the ninja mode: new shorter characters from free assets, a ha
 | Find CC0/CC-BY ninja sprite pack candidates and their license pages | Haiku | low | Narrow search; Sonnet double-checks the licenses |
 | Design the jutsu and combat systems: data model, seal input, server sync | Opus | high | New architecture on a server-authoritative sim. One focused call that produces a spec |
 | Design the map layout format (layers, ledges, hiding spots, trap sockets) | Sonnet | medium | Real choices, but it follows the spec and can be tried and tested. Opus only if it fails |
-| Implement jutsu effects from the spec | Sonnet ×3 at a time | medium | Clear spec, high volume |
+| Implement the first jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; it becomes the template for the rest |
+| Implement the remaining jutsu by following the first one | Sonnet ×3 at a time | medium | Clear pattern to copy, high volume |
+| Multi-hit combat feel (hit-stop, combos, knockback) | Sonnet first, Opus if two rounds fail | medium | Judgment-heavy, but Pro saves Opus for when Sonnet proves it needs it |
 | Codex UI page listing seal combos | Sonnet | low | Follows existing UI patterns |
 | Adapt sprites (crop, recolor, crouched run frames) | Sonnet | medium | Mechanical, verified visually |
 | Review the integrated diff for desync | Opus | high | Risky networking logic; one review at the end |
 
-Two Opus calls in total. Split the work into phases across sessions so one phase fits in a 5-hour window.
+Three Opus calls planned (design, first jutsu, review), plus one more only if combat feel needs it. Split the work into phases across sessions so one phase fits in a 5-hour window.
 
 ## 2. Bug with unknown cause
 

@@ -57,6 +57,29 @@ Ask five questions about each subtask. Start at Sonnet. Each "yes" to 1–4 is a
 Shortcut: **the expensive model decides, the cheap model types.** A common high-value pattern:
 Opus or Fable writes a short spec or plan → Sonnet subagents implement it in parallel → you or Opus verify.
 
+## Implementation quality: who should write the code
+
+Cheap is only cheap if it's right the first time. Judge by the expected total: price × attempts + the cost of bugs that slip through. Sonnet matches Opus when the work is pinned down; Opus pulls ahead when writing the code itself requires judgment.
+
+**Sonnet writes it** when:
+- the spec says exactly what to change and how "done" is checked
+- there's an existing pattern in the codebase to copy
+- the change is local to one module, or the same change repeated across files
+- mistakes show up immediately (tests, build errors, visible UI)
+
+**Opus writes it** when any of these hold:
+- the spec leaves real interpretation to the implementer ("make hits feel punchy", "ninja-like movement")
+- the change must stay consistent across tightly coupled parts (client and server sim, shared state, protocols, migrations)
+- a mistake would be silent: desyncs, race conditions, off-by-one in game rules, security, data loss
+- the task is long and must hold many constraints at once, where Sonnet tends to drift or repeat a mistake
+- it's the core everything else builds on (engine loop, data model, netcode)
+
+**Fable writes it** only when Opus's code itself is the risk: a novel algorithm, or a subtle concurrency or netcode core. Otherwise Fable designs and reviews, and cheaper models write the code.
+
+**Split instead of choosing.** When a task mixes both, the stronger model writes the core or the first example end to end, and Sonnet fills in the repetitive rest by following it. For example, Opus implements the first jutsu through input, sim, server and render, then Sonnet adds the next nine the same way.
+
+**Learn from the session.** If Sonnet needed two or more fix rounds on a kind of task, route the remaining tasks of that kind to Opus from the start instead of paying for rework each time. If Opus's results on a kind of task pass trivially, step that kind down to Sonnet.
+
 ## Workflow
 
 1. **Decompose.** Break the request into subtasks with clear boundaries. Note which depend on others.

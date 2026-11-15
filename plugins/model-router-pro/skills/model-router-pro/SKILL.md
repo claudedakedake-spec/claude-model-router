@@ -57,8 +57,30 @@ Start at Sonnet.
 1. **Does it need real reasoning?** New architecture, tricky invariants, or an unknown root cause, not just a lot of typing.
 2. **Is a wrong answer expensive and hard to spot?** Subtle bugs that tests won't catch, or server, persistence, auth or money logic.
 3. **Did Sonnet already fail it twice** with a clear brief and the failure details?
+4. **Is writing the code itself judgment-heavy?** See the next section.
 
-"It's long" or "it touches many files" alone is not a reason for Opus. Volume is exactly where Sonnet saves the most.
+Length or file count alone is not a reason for Opus; volume is exactly where Sonnet saves the most. Tight coupling or silent failure is a reason.
+
+## Implementation quality: who should write the code
+
+Cheap is only cheap if it's right the first time. Judge by the expected total: price × attempts + the cost of bugs that slip through. On Pro, a Sonnet implementation that needs three fix rounds can cost more of the limit than one Opus pass.
+
+**Sonnet writes it** when:
+- the spec says exactly what to change and how "done" is checked
+- there's an existing pattern in the codebase to copy
+- the change is local to one module, or the same change repeated across files
+- mistakes show up immediately (tests, build errors, visible UI)
+
+**Opus writes it** when any of these hold:
+- the spec leaves real interpretation to the implementer ("make hits feel punchy", "ninja-like movement")
+- the change must stay consistent across tightly coupled parts (client and server sim, shared state, protocols, migrations)
+- a mistake would be silent: desyncs, race conditions, off-by-one in game rules, security, data loss
+- the task is long and must hold many constraints at once, where Sonnet tends to drift or repeat a mistake
+- it's the core everything else builds on (engine loop, data model, netcode)
+
+**Split instead of choosing; this matters most on Pro.** Have Opus write only the core or the first example end to end, then let Sonnet fill in the repetitive rest by following it. For example, Opus implements the first jutsu through input, sim, server and render, then Sonnet adds the next nine the same way. This gets Opus-level structure for a fraction of the Opus usage.
+
+**Learn from the session.** If Sonnet needed two or more fix rounds on a kind of task, route the remaining tasks of that kind to Opus from the start. If Opus's results on a kind of task pass trivially, step that kind down to Sonnet.
 
 The pattern that stretches Pro the furthest: **Opus writes a short spec once → Sonnet implements it → Sonnet runs the checks → Opus reviews only if the change is risky.** One focused Opus call that removes ambiguity is worth more than many Opus calls that type code.
 
