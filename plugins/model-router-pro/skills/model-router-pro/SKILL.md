@@ -78,7 +78,12 @@ Cheap is only cheap if it's right the first time. Judge by the expected total: p
 - the task is long and must hold many constraints at once, where Sonnet tends to drift or repeat a mistake
 - it's the core everything else builds on (engine loop, data model, netcode)
 
-**Split instead of choosing; this matters most on Pro.** Have Opus write only the core or the first example end to end, then let Sonnet fill in the repetitive rest by following it. For example, Opus implements the first jutsu through input, sim, server and render, then Sonnet adds the next nine the same way. This gets Opus-level structure for a fraction of the Opus usage.
+**Split instead of choosing, but only along the right line. This matters most on Pro.** Have Opus write the core or the first example end to end, then let Sonnet fill in the rest by following it. This keeps quality only when the rest really is the same shape. If each item needs its own judgment, a plain copy-the-first split leaves item one great and the rest flat. So:
+- **Opus makes every judgment call up front, in one call.** For each item it writes the behavior, feel, numbers, visuals and edge cases. Specs are cheap compared to code, so this is the best use of Opus on Pro. Sonnet then only translates specs into code.
+- **Items with a new mechanic aren't followers.** If an item needs a system the first one doesn't have (e.g. a clone that acts on its own, stealth that changes visibility rules), Opus implements it too.
+- **Review the batch side by side at the end.** Opus compares all items together in one call, then fixes or re-routes any that fall below the first.
+
+Example: Opus specs all ten jutsu (one call), implements the first projectile jutsu plus clone and stealth, and reviews all ten at the end. Sonnet implements the other variants from the specs.
 
 **Learn from the session.** If Sonnet needed two or more fix rounds on a kind of task, route the remaining tasks of that kind to Opus from the start. If Opus's results on a kind of task pass trivially, step that kind down to Sonnet.
 

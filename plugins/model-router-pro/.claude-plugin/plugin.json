@@ -1,7 +1,7 @@
 {
   "name": "model-router-pro",
   "description": "Model routing for Claude Pro: Haiku for lookups, Sonnet by default, Opus only for the hard core, no Fable without approval. Built to stretch the 5-hour and weekly limits.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "claudedakedake-spec"
   },

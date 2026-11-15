@@ -11,12 +11,14 @@ Request: "Redesign the ninja mode: new shorter characters from free assets, a ha
 | Find CC0/CC-BY ninja sprite packs, report licenses and URLs | Sonnet | low | Search and extraction; easy to verify |
 | Design the combat and jutsu systems: data model, seal input, server sync | Fable (or Opus in eco) | high | New architecture on a server-authoritative sim; mistakes are expensive |
 | Design the map layout format (layers, ledges, hiding spots, trap sockets) | Opus | high | Real design choices, moderate coupling |
-| Implement the seal-input core and the first jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; desync bugs are silent. It becomes the template |
-| Implement the remaining jutsu by following the first one | Sonnet ×N in parallel | medium | Clear pattern to copy, high volume |
+| Write a per-jutsu spec for all ten (behavior, feel, numbers, visuals, edge cases) | Opus | high | All taste and balance decisions are made here, so no item depends on Sonnet's judgment |
+| Implement the seal-input core and the first projectile jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; desync bugs are silent. It becomes the template |
+| Implement clone and stealth jutsu | Opus | high | New mechanics the template doesn't cover |
+| Implement the other projectile and area jutsu from their specs | Sonnet ×N in parallel | medium | Same shape as the template; the specs carry the judgment |
+| Review all ten jutsu side by side and the integrated diff for desync; fix or re-route weak ones | Opus | high | Keeps the batch at the level of the first and catches cross-cutting bugs, in one pass |
 | Multi-hit combat feel (hit-stop, combos, knockback tuning) | Opus | medium | "Feels good" needs interpretation; Sonnet tends to need several rounds |
 | Codex UI page listing seal combos | Sonnet | low | Follows existing UI patterns |
 | Adapt sprites (crop, recolor, crouched run frames) | Sonnet | medium | Mechanical, verified visually |
-| Review the integrated diff for desync and edge cases | Opus | high | Cross-cutting review |
 
 Main thread: decompose, hold the conversation, run the game, verify. Advise `/model sonnet` for the main thread once the specs are written.
 

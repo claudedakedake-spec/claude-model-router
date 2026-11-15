@@ -76,7 +76,12 @@ Cheap is only cheap if it's right the first time. Judge by the expected total: p
 
 **Fable writes it** only when Opus's code itself is the risk: a novel algorithm, or a subtle concurrency or netcode core. Otherwise Fable designs and reviews, and cheaper models write the code.
 
-**Split instead of choosing.** When a task mixes both, the stronger model writes the core or the first example end to end, and Sonnet fills in the repetitive rest by following it. For example, Opus implements the first jutsu through input, sim, server and render, then Sonnet adds the next nine the same way.
+**Split instead of choosing, but only along the right line.** When a task mixes both, the stronger model writes the core or the first example end to end, and Sonnet fills in the rest by following it. This keeps quality only when the rest really is the same shape. If each item needs its own judgment, a plain copy-the-first split leaves item one great and the rest flat. So:
+- **The strong model makes every judgment call up front.** For each item it writes the behavior, feel, numbers, visuals and edge cases. Sonnet then only translates specs into code and makes no taste decisions.
+- **Items with a new mechanic aren't followers.** If an item needs a system the first one doesn't have (e.g. a clone that acts on its own, stealth that changes visibility rules), the strong model implements it too.
+- **Review the batch side by side at the end.** The strong model compares all items together, then fixes or re-routes any that fall below the first.
+
+Example: Opus specs all ten jutsu and implements the first projectile jutsu plus clone and stealth. Sonnet implements the other projectile and area variants from the specs. Opus reviews all ten together.
 
 **Learn from the session.** If Sonnet needed two or more fix rounds on a kind of task, route the remaining tasks of that kind to Opus from the start instead of paying for rework each time. If Opus's results on a kind of task pass trivially, step that kind down to Sonnet.
 

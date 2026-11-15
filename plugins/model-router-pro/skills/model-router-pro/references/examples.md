@@ -11,14 +11,16 @@ Request: "Redesign the ninja mode: new shorter characters from free assets, a ha
 | Find CC0/CC-BY ninja sprite pack candidates and their license pages | Haiku | low | Narrow search; Sonnet double-checks the licenses |
 | Design the jutsu and combat systems: data model, seal input, server sync | Opus | high | New architecture on a server-authoritative sim. One focused call that produces a spec |
 | Design the map layout format (layers, ledges, hiding spots, trap sockets) | Sonnet | medium | Real choices, but it follows the spec and can be tried and tested. Opus only if it fails |
-| Implement the first jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; it becomes the template for the rest |
-| Implement the remaining jutsu by following the first one | Sonnet ×3 at a time | medium | Clear pattern to copy, high volume |
+| Write a per-jutsu spec for all ten (behavior, feel, numbers, visuals, edge cases), done in the same call as the system design | Opus | high | All taste and balance decisions in one call; specs are cheap compared to code |
+| Implement the first projectile jutsu end to end (input → sim → server → render) | Opus | high | Coupled client/server code; it becomes the template |
+| Implement clone and stealth jutsu | Opus | high | New mechanics the template doesn't cover |
+| Implement the other projectile and area jutsu from their specs | Sonnet ×3 at a time | medium | Same shape as the template; the specs carry the judgment |
 | Multi-hit combat feel (hit-stop, combos, knockback) | Sonnet first, Opus if two rounds fail | medium | Judgment-heavy, but Pro saves Opus for when Sonnet proves it needs it |
 | Codex UI page listing seal combos | Sonnet | low | Follows existing UI patterns |
 | Adapt sprites (crop, recolor, crouched run frames) | Sonnet | medium | Mechanical, verified visually |
-| Review the integrated diff for desync | Opus | high | Risky networking logic; one review at the end |
+| Review all jutsu side by side and the integrated diff for desync | Opus | high | Keeps the batch at the level of the first, and catches risky networking logic, in one call |
 
-Three Opus calls planned (design, first jutsu, review), plus one more only if combat feel needs it. Split the work into phases across sessions so one phase fits in a 5-hour window.
+Four Opus calls planned (design and specs, first jutsu, clone and stealth, final review), plus one more only if combat feel needs it. Split the work into phases across sessions so one phase fits in a 5-hour window.
 
 ## 2. Bug with unknown cause
 
