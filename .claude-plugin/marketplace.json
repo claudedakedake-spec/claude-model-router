@@ -1,15 +1,21 @@
 {
   "name": "model-router",
-  "description": "Cost-aware model routing skill for Claude Code.",
+  "description": "Cost-aware model routing skills for Claude Code: one for Max/Ultra (with Fable), one for Pro.",
   "owner": {
     "name": "claudedakedake-spec"
   },
   "plugins": [
     {
       "name": "model-router",
-      "description": "Route each subtask to the cheapest Claude model that does it well (Sonnet / Opus / Fable), with verification and escalation.",
+      "description": "For Claude Max/Ultra. Route each subtask to the cheapest Claude model that does it well (Sonnet / Opus / Fable), with verification and escalation.",
+      "version": "0.2.0",
+      "source": "./plugins/model-router"
+    },
+    {
+      "name": "model-router-pro",
+      "description": "For Claude Pro. Haiku for lookups, Sonnet by default, Opus only for the hard core, no Fable without approval.",
       "version": "0.1.0",
-      "source": "./"
+      "source": "./plugins/model-router-pro"
     }
   ]
 }

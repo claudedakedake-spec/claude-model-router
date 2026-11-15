@@ -1,6 +1,6 @@
 ---
 name: model-router
-description: Splits multi-part work into subtasks and runs each on the cheapest Claude model that will still do it well (Sonnet / Opus / Fable), delegating through subagents with an explicit model and effort, escalating only when a cheaper attempt fails verification. Use this whenever a request bundles several tasks, a big feature, a refactor, a batch of fixes, research plus implementation, or any long multi-step job, and whenever the user mentions tokens, cost, usage limits, speed, "which model", efficiency, 토큰, 한도, 효율, 모델 선택, even if they don't name this skill. Also use when the user types /model-router with eco, balanced or quality.
+description: Splits multi-part work into subtasks and runs each on the cheapest Claude model that will still do it well (Sonnet / Opus / Fable), delegating through subagents with an explicit model and effort, picking plan mode and effort automatically, escalating only when a cheaper attempt fails verification. Use this whenever a request bundles several tasks, a big feature, a refactor, a batch of fixes, research plus implementation, or any long multi-step job, and whenever the user mentions tokens, cost, usage limits, speed, "which model", efficiency, 토큰, 한도, 효율, 모델 선택, even if they don't name this skill. Also use when the user types /model-router with eco, balanced or quality. Built for Max/Ultra plans, where Fable is included; on a Pro plan, model-router-pro is the better fit.
 argument-hint: "[eco | balanced | quality] [task]"
 user-invocable: true
 license: MIT
@@ -68,6 +68,15 @@ Opus or Fable writes a short spec or plan → Sonnet subagents implement it in p
 7. **Escalate on evidence, not on fear.** If verification fails, retry once at the same tier with the specific failure added to the brief. If it fails again, move up one tier and include what the previous attempt learned. Never skip straight to Fable for a first attempt unless the subtask matches the Fable row.
 8. **Step down** once the hard decisions are made: the remaining work is usually Sonnet-sized.
 9. **Report** at the end with one short table: what ran where, and anything that had to escalate. This lets the user tune the routing over time.
+
+## Session settings you manage automatically
+
+Decide these yourself; don't ask the user to choose.
+
+- **Subagent effort:** always set it from the tier table. Raise it one step for a retry, and lower it for pure mechanical edits.
+- **Plan mode:** enter it yourself with `EnterPlanMode` before editing when the work is big or ambiguous, such as 3 or more subtasks, an architectural decision, or many files where a wrong direction is costly. Research read-only (cheap subagents can do the reading), put the routing table in the plan, and present it with `ExitPlanMode` for approval. Skip plan mode for small or clear tasks, since it costs a round-trip. If the session is already in plan mode, the routing table goes into the plan.
+- **Auto mode / permission mode:** you cannot turn these on; they are the user's safety choice. If an approved plan has many routine edits and permission prompts keep interrupting, suggest once that the user can switch modes (Shift+Tab) for the execution phase. Never suggest it for risky steps such as deploys, deletions or anything outward-facing.
+- **Main-conversation model and effort:** only the user can change these. Suggest a change in one line when a phase changes, e.g. from Fable for design to Sonnet for implementation.
 
 ## Writing a brief for a subagent
 

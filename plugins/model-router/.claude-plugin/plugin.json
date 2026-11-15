@@ -1,0 +1,10 @@
+{
+  "name": "model-router",
+  "description": "For Claude Max/Ultra. Route each subtask to the cheapest Claude model that does it well (Sonnet / Opus / Fable), with verification and escalation.",
+  "version": "0.2.0",
+  "author": {
+    "name": "claudedakedake-spec"
+  },
+  "license": "MIT",
+  "keywords": ["model-routing", "cost", "tokens", "subagents", "orchestration"]
+}
